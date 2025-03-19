@@ -3,6 +3,7 @@ import { BsFillCartFill, BsFillPencilFill } from 'react-icons/bs';
 import { Link } from 'react-router';
 import { login, logout, onUserStateChange } from '../api/firebase';
 import User from './User';
+import Button from './ui/Button';
 
 export default function Navbar() {
   const [user, setUser] = useState();
@@ -26,8 +27,8 @@ export default function Navbar() {
           <BsFillCartFill />
         </Link>
         {user && <User user={user} />}
-        {!user && <button onClick={login}>LogIn</button>}
-        {user && <button onClick={logout}>LogOut</button>}
+        {!user && <Button text='LogIn' onClick={login} />}
+        {user && <Button text='LogOut' onClick={logout} />}
       </nav>
     </header>
   );

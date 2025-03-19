@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import Button from '../components/ui/Button';
+import { uploadImage } from '../api/imageUploader';
 
 export default function NewProduct() {
   const [product, setProduct] = useState({});
   const [file, setFile] = useState();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const url = await uploadImage(file);
+    console.log(url);
   };
 
   const handleChange = (e) => {

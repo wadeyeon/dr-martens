@@ -16,7 +16,7 @@ export default function Navbar() {
       <nav className='flex items-center gap-4'>
         <Link to='/products'>Products</Link>
         {user && user.isAdmin && (
-          <Link to='/products'>
+          <Link to='/products/new'>
             <BsFillPencilFill />
           </Link>
         )}

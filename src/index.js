@@ -9,6 +9,7 @@ import NewProduct from './pages/NewProduct';
 import ProductDetail from './pages/ProductDetail';
 import MyCart from './pages/MyCart';
 import NotFound from './pages/NotFound';
+import ProtectedRoute from './pages/ProtectedRoute';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -19,9 +20,23 @@ root.render(
       <Route path='/' element={<App />}>
         <Route index element={<Home />} />
         <Route path='products' element={<Products />} />
-        <Route path='products/new' element={<NewProduct />} />
+        <Route
+          path='products/new'
+          element={
+            <ProtectedRoute requireAdmin>
+              <NewProduct />
+            </ProtectedRoute>
+          }
+        />
         <Route path='products/:productId' element={<ProductDetail />} />
-        <Route path='carts' element={<MyCart />} />
+        <Route
+          path='carts'
+          element={
+            <ProtectedRoute>
+              <MyCart />
+            </ProtectedRoute>
+          }
+        />
       </Route>
     </Routes>
   </BrowserRouter>

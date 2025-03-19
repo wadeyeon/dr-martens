@@ -15,12 +15,16 @@ export default function Navbar() {
       </Link>
       <nav className='flex items-center gap-4'>
         <Link to='/products'>Products</Link>
-        <Link to='/products'>
-          <BsFillPencilFill />
-        </Link>
-        <Link to='/carts'>
-          <BsFillCartFill />
-        </Link>
+        {user && user.isAdmin && (
+          <Link to='/products'>
+            <BsFillPencilFill />
+          </Link>
+        )}
+        {user && (
+          <Link to='/carts'>
+            <BsFillCartFill />
+          </Link>
+        )}
         {user && <User user={user} />}
         {!user && <Button text='LogIn' onClick={login} />}
         {user && <Button text='LogOut' onClick={logout} />}

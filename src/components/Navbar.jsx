@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BsFillCartFill, BsFillPencilFill } from 'react-icons/bs';
 import { Link } from 'react-router';
 import { login, logout, onUserStateChange } from '../api/firebase';
+import User from './User';
 
 export default function Navbar() {
   const [user, setUser] = useState();
@@ -24,6 +25,7 @@ export default function Navbar() {
         <Link to='/carts'>
           <BsFillCartFill />
         </Link>
+        {user && <User user={user} />}
         {!user && <button onClick={login}>LogIn</button>}
         {user && <button onClick={logout}>LogOut</button>}
       </nav>

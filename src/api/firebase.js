@@ -6,7 +6,8 @@ import {
   signInWithPopup,
   signOut,
 } from 'firebase/auth';
-import { get, getDatabase, ref } from 'firebase/database';
+import { get, getDatabase, ref, set } from 'firebase/database';
+import { v4 as uuid } from 'uuid';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -58,4 +59,15 @@ export async function adminUser(user) {
   } catch (error) {
     console.error(error.message);
   }
+}
+
+export async function addNewProduct(product, image) {
+  const id = uuid();
+  set(ref(database, `products/${id}`), {
+    ...product,
+    id,
+    price: parseInt(product.price),
+    image,
+    size: product.size.split(','),
+  });
 }

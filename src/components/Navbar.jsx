@@ -1,17 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { BsFillCartFill, BsFillPencilFill } from 'react-icons/bs';
 import { Link } from 'react-router';
-import { login, logout, onUserStateChange } from '../api/firebase';
 import User from './User';
 import Button from './ui/Button';
+import { useUser } from '../contexts/UserContext';
 
 export default function Navbar() {
-  const [user, setUser] = useState();
-
-  // 새로고침시 user 정보가 초기화되는 문제 처리
-  useEffect(() => {
-    onUserStateChange(setUser);
-  }, []);
+  const { user, login, logout } = useUser();
 
   return (
     <header className='flex justify-between items-center p-8 border-b'>

@@ -1,12 +1,13 @@
 import { Outlet } from 'react-router';
 import Navbar from './components/Navbar';
+import { UserContextProvider } from './contexts/UserContext';
 
 function App() {
   return (
-    <div>
+    <UserContextProvider>
       <Navbar />
       <Outlet />
-    </div>
+    </UserContextProvider>
   );
 }
 

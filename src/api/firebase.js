@@ -71,3 +71,16 @@ export async function addNewProduct(product, image) {
     size: product.size.split(','),
   });
 }
+
+export async function getProducts() {
+  try {
+    const snapshot = await get(ref(database, 'products'));
+    if (snapshot.exists()) {
+      const products = snapshot.val();
+      return Object.values(products);
+    }
+    return [];
+  } catch (error) {
+    console.error(error.message);
+  }
+}

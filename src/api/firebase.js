@@ -6,7 +6,7 @@ import {
   signInWithPopup,
   signOut,
 } from 'firebase/auth';
-import { get, getDatabase, ref, set } from 'firebase/database';
+import { get, getDatabase, ref, set, remove } from 'firebase/database';
 import { v4 as uuid } from 'uuid';
 
 const firebaseConfig = {
@@ -100,4 +100,8 @@ export async function getCart(userId) {
   } catch (error) {
     console.error(error.message);
   }
+}
+
+export function removeFromCart(userId, productId) {
+  remove(ref(database, `carts/${userId}/${productId}`));
 }

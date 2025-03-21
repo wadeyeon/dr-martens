@@ -1,9 +1,10 @@
 import React from 'react';
-import { BsFillCartFill, BsFillPencilFill } from 'react-icons/bs';
+import { BsFillPencilFill } from 'react-icons/bs';
 import { Link } from 'react-router';
 import User from './User';
 import Button from './ui/Button';
 import { useUser } from '../contexts/UserContext';
+import CartStatus from './CartStatus';
 
 export default function Navbar() {
   const { user, login, logout } = useUser();
@@ -22,7 +23,7 @@ export default function Navbar() {
         )}
         {user && (
           <Link to='/carts'>
-            <BsFillCartFill />
+            <CartStatus />
           </Link>
         )}
         {user && <User user={user} />}

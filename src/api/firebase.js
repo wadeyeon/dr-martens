@@ -88,3 +88,16 @@ export async function getProducts() {
 export async function addOrUpdateToCart(userId, product) {
   set(ref(database, `carts/${userId}/${product.id}`), product);
 }
+
+export async function getCart(userId) {
+  try {
+    const snapshot = await get(ref(database, `carts/${userId}`));
+    if (snapshot.exists()) {
+      const carts = snapshot.val();
+      return Object.values(carts);
+    }
+    return [];
+  } catch (error) {
+    console.error(error.message);
+  }
+}

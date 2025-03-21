@@ -8,8 +8,8 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <UserContextProvider>
-      <Navbar />
       <QueryClientProvider client={queryClient}>
+        <Navbar />
         <Outlet />
       </QueryClientProvider>
     </UserContextProvider>

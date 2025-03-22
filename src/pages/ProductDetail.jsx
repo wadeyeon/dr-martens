@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import Button from '../components/ui/Button';
 import { useLocation } from 'react-router';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useUser } from '../contexts/UserContext';
 import { addOrUpdateToCart } from '../api/firebase';
+import Button from '../components/ui/Button';
 
 export default function ProductDetail() {
   const {
@@ -12,6 +13,14 @@ export default function ProductDetail() {
   } = useLocation();
   const { uid } = useUser();
   const [selected, setSelected] = useState(size && size[0]);
+  const [success, setSuccess] = useState();
+  const queryClient = useQueryClient();
+  const { isPending, mutate } = useMutation({
+    mutationFn: (addedProduct) => addOrUpdateToCart(uid, addedProduct),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['carts', uid] });
+    },
+  });
 
   const handleAddCart = () => {
     const addedProduct = {
@@ -22,7 +31,14 @@ export default function ProductDetail() {
       size: selected,
       quantity: 1,
     };
-    addOrUpdateToCart(uid, addedProduct);
+    mutate(addedProduct, {
+      onSuccess: () => {
+        setSuccess('장바구니에 추가했습니다.');
+        setTimeout(() => {
+          setSuccess(null);
+        }, 3000);
+      },
+    });
   };
 
   return (
@@ -45,7 +61,12 @@ export default function ProductDetail() {
             {size &&
               size.map((value, index) => <option key={index}>{value}</option>)}
           </select>
-          <Button text='장바구니 추가' onClick={handleAddCart} />
+          <Button
+            text='장바구니 추가'
+            onClick={handleAddCart}
+            disabled={isPending}
+          />
+          {success && <p className='my-2'>✅ {success}</p>}
         </div>
       </section>
     </>

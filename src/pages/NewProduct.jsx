@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Button from '../components/ui/Button';
 import { uploadImage } from '../api/imageUploader';
 import { addNewProduct } from '../api/firebase';
@@ -6,21 +7,29 @@ import { addNewProduct } from '../api/firebase';
 export default function NewProduct() {
   const [product, setProduct] = useState({});
   const [file, setFile] = useState();
-  const [isUploading, setIsUploading] = useState(false);
   const [success, setSuccess] = useState();
+  const queryClient = useQueryClient();
+  const { isPending, mutate } = useMutation({
+    mutationFn: ({ product, url }) => addNewProduct(product, url),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['products'] });
+    },
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsUploading(true);
     uploadImage(file).then((url) => {
-      addNewProduct(product, url)
-        .then(() => {
-          setSuccess('성공적으로 제품을 추가했습니다.');
-          setTimeout(() => {
-            setSuccess(null);
-          }, 3000);
-        })
-        .finally(() => setIsUploading(false));
+      mutate(
+        { product, url },
+        {
+          onSuccess: () => {
+            setSuccess('성공적으로 제품을 추가했습니다.');
+            setTimeout(() => {
+              setSuccess(null);
+            }, 3000);
+          },
+        }
+      );
     });
   };
 
@@ -93,9 +102,9 @@ export default function NewProduct() {
           onChange={handleChange}
         />
         <Button
-          text={isUploading ? '업로드 중...' : '제품 등록하기'}
+          text={isPending ? '업로드 중...' : '제품 등록하기'}
           onClick={handleSubmit}
-          disabled={isUploading}
+          disabled={isPending}
         />
       </form>
     </section>

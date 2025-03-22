@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useUser } from '../contexts/UserContext';
-import { addOrUpdateToCart } from '../api/firebase';
 import Button from '../components/ui/Button';
+import useCarts from '../hooks/useCarts';
 
 export default function ProductDetail() {
   const {
@@ -11,16 +9,11 @@ export default function ProductDetail() {
       product: { id, title, image, price, description, category, size },
     },
   } = useLocation();
-  const { uid } = useUser();
   const [selected, setSelected] = useState(size && size[0]);
   const [success, setSuccess] = useState();
-  const queryClient = useQueryClient();
-  const { isPending, mutate } = useMutation({
-    mutationFn: (addedProduct) => addOrUpdateToCart(uid, addedProduct),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['carts', uid] });
-    },
-  });
+  const {
+    addOrUpdateItem: { isPending, mutate },
+  } = useCarts();
 
   const handleAddCart = () => {
     const addedProduct = {

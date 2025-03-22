@@ -1,19 +1,11 @@
 import React from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { getProducts } from '../api/firebase';
 import ProductCard from '../components/ProductCard';
+import useProducts from '../hooks/useProduct';
 
 export default function Products() {
   const {
-    isPending,
-    error,
-    data: products,
-    isFetching,
-  } = useQuery({
-    queryKey: ['products'],
-    queryFn: getProducts,
-    staleTime: 1000 * 60 * 5, // 5분
-  });
+    productsQuery: { isPending, error, data: products, isFetching },
+  } = useProducts();
 
   return (
     <>

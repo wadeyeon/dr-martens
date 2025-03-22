@@ -12,15 +12,13 @@ export default function ProductCard({
 
   return (
     <li
-      className='rounded-lg overflow-hidden shadow-md cursor-pointer'
+      className='p-2 border border-white overflow-hidden cursor-pointer transition-all hover:border-gray-300'
       onClick={handleClick}
     >
       <img className='w-full' src={image} alt={title} />
       <div className='p-2'>
-        <h3>{title}</h3>
-        <p className='text-sm text-gray-500'>
-          &#8361; {price.toLocaleString()}
-        </p>
+        <h3 className='text-lg font-semibold'>{title}</h3>
+        <p className='text-sm text-gray-500'>{price.toLocaleString()}원</p>
       </div>
     </li>
   );

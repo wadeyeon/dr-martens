@@ -16,6 +16,14 @@ code {
     monospace;
 }
 
+#root {
+  @apply flex flex-col w-full h-screen;
+}
+
 input {
-  @apply outline-none border p-2;
+  @apply outline-none border p-2.5 pl-4;
+}
+
+button {
+  @apply outline-none;
 }

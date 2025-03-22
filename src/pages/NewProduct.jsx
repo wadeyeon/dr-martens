@@ -38,17 +38,17 @@ export default function NewProduct() {
   };
 
   return (
-    <section>
-      <h2 className='my-4 text-2xl font-bold'>새로운 제품 등록</h2>
+    <section className='mx-auto px-8 w-10/12'>
+      <h2 className='my-4 mb-16 text-2xl font-bold'>새로운 제품 등록</h2>
       {success && <p className='my-2'>✅ {success}</p>}
       {file && (
         <img
-          className='mx-auto mb-2 w-96'
+          className='mx-auto mb-10 w-96'
           src={URL.createObjectURL(file)}
           alt={file.name}
         />
       )}
-      <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
+      <form className='flex flex-col gap-4 mb-10 px-10' onSubmit={handleSubmit}>
         <input
           type='file'
           accept='image/*'
@@ -89,6 +89,7 @@ export default function NewProduct() {
           onChange={handleChange}
         />
         <input
+          className='mb-8'
           type='text'
           name='size'
           value={product.size ?? ''}

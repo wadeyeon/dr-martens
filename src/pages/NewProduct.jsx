@@ -18,7 +18,7 @@ export default function NewProduct() {
         { product, url },
         {
           onSuccess: () => {
-            alert('제품이 등록되었습니다.');
+            alert('상품이 등록되었습니다.');
             setFile();
             setProduct({});
             if (fileRef.current) {
@@ -41,7 +41,7 @@ export default function NewProduct() {
 
   return (
     <section className='mx-auto px-8 w-10/12'>
-      <h2 className='my-4 mb-16 text-2xl font-bold'>새로운 제품 등록</h2>
+      <h2 className='my-4 mb-16 text-2xl font-bold'>새로운 상품 등록</h2>
       {file && (
         <img
           className='mx-auto mb-10 w-96'
@@ -62,7 +62,7 @@ export default function NewProduct() {
           type='text'
           name='title'
           value={product.title ?? ''}
-          placeholder='제품명'
+          placeholder='상품명'
           required
           onChange={handleChange}
         />
@@ -86,7 +86,7 @@ export default function NewProduct() {
           type='text'
           name='description'
           value={product.description ?? ''}
-          placeholder='제품 설명'
+          placeholder='상품 설명'
           required
           onChange={handleChange}
         />
@@ -100,7 +100,7 @@ export default function NewProduct() {
           onChange={handleChange}
         />
         <Button
-          text={isPending ? '업로드 중...' : '제품 등록하기'}
+          text={isPending ? '업로드 중...' : '상품 등록하기'}
           onClick={handleSubmit}
           disabled={isPending}
         />

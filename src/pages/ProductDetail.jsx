@@ -37,7 +37,7 @@ export default function ProductDetail() {
 
   return (
     <div className='mx-auto w-10/12'>
-      <h2 className='my-4 ml-8 text-2xl font-bold'>제품 상세보기</h2>
+      <h2 className='my-4 ml-8 text-2xl font-bold'>상품 상세보기</h2>
       <p className='mt-4 mx-8 text-gray-500'>
         전체&nbsp;&nbsp;/&nbsp;&nbsp;
         <span className='font-bold'>{category}</span>

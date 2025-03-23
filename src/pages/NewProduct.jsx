@@ -13,21 +13,24 @@ export default function NewProduct() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    uploadImage(file).then((url) => {
-      mutate(
-        { product, url },
-        {
-          onSuccess: () => {
-            alert('상품이 등록되었습니다.');
-            setFile();
-            setProduct({});
-            if (fileRef.current) {
-              fileRef.current.value = ''; // fileRef.current: file input DOM
-            }
-          },
+    uploadImage(file)
+      .then((url) => {
+        mutate(
+          { product, url },
+          {
+            onSuccess: () => {
+              alert('상품이 등록되었습니다.');
+            },
+          }
+        );
+      })
+      .finally(() => {
+        setFile();
+        setProduct({});
+        if (fileRef.current) {
+          fileRef.current.value = ''; // fileRef.current: file input DOM
         }
-      );
-    });
+      });
   };
 
   const handleChange = (e) => {
